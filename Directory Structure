@@ -1,0 +1,17 @@
+inventory-app/
+├── models/
+│   └── Item.js
+├── routes/
+│   ├── items.js
+│   └── auth.js
+├── config/
+│   └── keys.js
+├── middleware/
+│   └── auth.js
+├── public/
+│   ├── css/
+│   │   └── style.css
+│   ├── js/
+│   │   └── app.js
+│   └── index.html
+└── server.js
