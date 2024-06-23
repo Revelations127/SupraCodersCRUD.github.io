@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inventory Manager Sign In</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #3498db; /* Blue background color */
+    color: #000000; /* Black text color */
+  }
+  .container {
+    width: 50%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff; /* White background */
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  }
+  h1 {
+    font-size: 2.5em; /* Larger font size for the header */
+    margin-bottom: 20px;
+  }
+  .input-group {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  .input-group label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  .input-group input {
+    width: calc(100% - 20px); /* Adjusting for padding */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  .input-group button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .input-group button:hover {
+    background-color: #fff;
+    color: #333;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Inventory Manager Sign In</h1>
+    <div class="input-group">
+      <input type="text" placeholder="Username">
+    </div>
+    <div class="input-group">
+      <input type="password" placeholder="Password">
+    </div>
+    <div class="input-group">
+      <button onclick="signIn()">Sign In</button>
+    </div>
+    <div class="input-group">
+      <button onclick="goToCreateAccount()">Create Account</button>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript functions remain unchanged except for signIn()
+    function signIn() {
+      let username = document.querySelector('input[type="text"]').value;
+      let password = document.querySelector('input[type="password"]').value;
+
+      let foundUser = users.find(user => user.username === username && user.password === password);
+
+      if (foundUser) {
+        alert(`Welcome, ${username}!`);
+        if (foundUser.role === 'manager') {
+          window.location.href = "manager_dashboard.html";
+        } else if (foundUser.role === 'visitor') {
+          window.location.href = "visitor_dashboard.html";
+        }
+      } else {
+        alert("Invalid username or password. Please try again.");
+      }
+    }
+
+    function goToCreateAccount() {
+      window.location.href = "create_account.html";
+    }
+
+    // Simulated database of users
+    let users = [
+      { username: 'manager1', password: 'password1', role: 'manager' },
+      { username: 'manager2', password: 'password2', role: 'manager' },
+      { username: 'visitor1', password: 'password3', role: 'visitor' }
+    ];
+  </script>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Title</title>
+  <style>
+    .home-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 15px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      z-index: 1000; /* Ensure it's above other content */
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .home-button:hover {
+      background-color: white;
+       color: black;
+    }
+  </style>
+</head>
+<body>
+  <!-- Your page content here -->
+
+  <!-- Home button -->
+  <button class="home-button" onclick="goHome()">HOME</button>
+
+  <!-- Example JavaScript function for demonstration -->
+  <script>
+    function goHome() {
+      window.location.href = "index.html"; // Replace with your home page URL
+    }
+  </script>
+</body>
+</html>
