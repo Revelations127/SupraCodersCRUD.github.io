@@ -272,85 +272,53 @@
 </section>
 
 <!-- partial:index.partial.html -->
-  
-  .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  .content {
-    background-color: #ffffff; /* White background for content */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
-    text-align: center; /* Center text within the content */
-    width: 80%;
-    max-width: 600px; /* Limit maximum width of content */
-  }
-  h1 {
-    font-size: 2.5em; /* Larger font size for the header */
-    margin-top: 20px; /* Adjusted margin top */
-    line-height: 1.2; /* Increased line height for readability */
-  }
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    margin: 10px;
-    cursor: pointer;
-    background-color: #333; /* Black button background */
-    color: #ccc; /* Grey button text color */
-    border: none;
-    border-radius: 4px;
-    transition: background-color 0.3s, color 0.3s; /* Smooth transition for button hover effect */
-  }
-  button:hover {
-    background-color: #fff; /* White button background on hover */
-    color: #333; /* Black button text color on hover */
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-    color: #000; /* Black text color */
-  }
-  th, td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd; /* Light grey border bottom for rows */
-  }
-  th {
-    background-color: #f0f0f0; /* Light grey background for header row */
-    color: #000; /* Black text color for header row */
-    font-weight: bold;
-  }
-</style>
-</head>
-<body>
-  <div class="container">
-    <div class="content">
-      <h1>Welcome to the<br>Inventory System</h1>
-      <p style="margin-top: 20px;">Please choose an option:</p>
-      <button onclick="viewInventory()">View Inventory as Visitor</button>
-      <button onclick="goToSignIn()">Inventory Manager Sign In</button>
+<div class="container">
+  <header>Login Form</header>
+  <form action="#">
+    <div class="field email-field">
+      <div class="input-field">
+        <input type="email" placeholder="Enter your email" class="email" required />
+      </div>
+      <span class="error email-error">
+        <i class="bx bx-error-circle error-icon"></i>
+        <p class="error-text">Please enter a valid email</p>
+      </span>
     </div>
-  </div>
+    <div class="field create-password">
+      <div class="input-field">
+        <input type="password" placeholder="Password" class="password" required />
+        <i class="bx bx-hide show-hide"></i>
+      </div>
+      <span class="error password-error">
+        <i class="bx bx-error-circle error-icon"></i>
+        <p class="error-text">
+          Please enter atleast 8 charatcer with number, symbol, small and
+          capital letter.
+        </p>
+      </span>
+    </div>
+    <div class="field confirm-password">
+      <div class="input-field">
+        <input type="password" placeholder="Confirm Password" class="cPassword" required />
+        <i class="bx bx-hide show-hide"></i>
+      </div>
+      <span class="error cPassword-error">
+        <i class="bx bx-error-circle error-icon"></i>
+        <p class="error-text">Password didn't match</p>
+      </span>
+    </div>
+    <div class="links">
+      <a href="#">Forgot Password</a>
+      <a href="signup.html">Signup</a>
+    </div>
+    <div class="input-field button">
+      <input type="submit" value="Login Now" />
+    </div>
+  </form>
+</div>
 
-  <script>
-    function viewInventory() {
-      // Reditect to Inventory Page (inventory.html)
-      window.location.href = "inventory.html";
-    }
+<!-- partial -->
+  <script  src="./script2.js"></script>
 
-    function goToSignIn() {
-      // Redirect to sign-in page
-      window.location.href = "signin.html";
-    }
-
-    function goHome() {
-      // Redirect back to the home page (index.html)
-      window.location.href = "index.html";
-    }
-  </script>
 </body>
 </html>
