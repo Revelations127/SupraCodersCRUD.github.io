@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory List</title>
+  <style>
+    body {
+      background-color: #3498db;
+      color: black;
+      font-family: Arial, sans-serif;
+    }
+    .content {
+      max-width: 800px;
+      background-color: white;
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table th, table td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    table th {
+      background-color: #f2f2f2;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 5px;
+      cursor: pointer;
+      background-color: #ccc;
+      color: black;
+      border: none;
+      border-radius: 4px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    button:hover {
+      background-color: #fff;
+      color: #333;
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      z-index: 1000;
+    }
+    .popup p {
+      white-space: pre-line;
+    }
+    .popup button {
+      margin-top: 10px;
+      padding: 8px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #ccc;
+      color: black;
+      border: none;
+      border-radius: 4px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .popup button:hover {
+      background-color: #fff;
+      color: #333;
+    }
+    .home-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 15px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      z-index: 1000;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .home-button:hover {
+      background-color: white;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <!-- Inventory data will be inserted here -->
+  </div>
+
+  <script>
+    let inventoryData = [
+      { id: 1, userId: 101, name: 'Item A', description: 'Description for Item A is a very long description that needs to be truncated to fit within the table row.', quantity: 10 },
+      { id: 2, userId: 102, name: 'Item B', description: 'Description for Item B is also a long description that needs to be truncated.', quantity: 5 },
+      { id: 3, userId: 103, name: 'Item C', description: 'Description for Item C is relatively short.', quantity: 8 }
+      // Add more items as needed
+    ];
+
+    function setHeader() {
+      const referringPage = document.referrer.split('/').pop();
+      const header = document.createElement('h2');
+      header.textContent = 'Inventory';
+      header.style.marginBottom = '5px';
+      header.style.fontSize = '28px';
+
+      const subheader = document.createElement('span');
+      subheader.textContent = (referringPage === 'create_account.html' || referringPage === 'signin.html') ? 'MANAGER VIEW' : 'VISITOR VIEW';
+      subheader.style.fontSize = '16px';
+      subheader.style.marginLeft = '10px';
+      subheader.style.color = '#666';
+
+      header.appendChild(subheader);
+      document.querySelector('.content').appendChild(header);
+
+      if (subheader.textContent === 'VISITOR VIEW') {
+        const addItemButton = document.querySelector('button');
+        if (addItemButton) {
+          addItemButton.remove();
+        }
+      } else if (subheader.textContent === 'MANAGER VIEW') {
+        const addItemButton = document.querySelector('button');
+        if (addItemButton) {
+          addItemButton.textContent = 'Add Item';
+        }
+      }
+    }
+
+function showDescriptionPopup(item) {
+  const popup = document.createElement('div');
+  popup.className = 'popup';
+  popup.innerHTML = `
+    <div style="background-color: white; color: black; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.2);">
+      <p><strong>ID:</strong> ${item.id}</p>
+      <p><strong>User ID:</strong> ${item.userId}</p>
+      <p><strong>Name:</strong> ${item.name}</p>
+      <p><strong>Description:</strong> ${item.description}</p>
+      <p><strong>Quantity:</strong> ${item.quantity}</p>
+      <button onclick="closePopup()" style="padding: 8px 20px; font-size: 16px; cursor: pointer; background-color: #ccc; color: black; border: none; border-radius: 4px; transition: background-color 0.3s, color 0.3s;">Close</button>
+    </div>
+  `;
+  document.body.appendChild(popup);
+  document.querySelector('.popup').style.display = 'block';
+}
+
+
+
+    function closePopup() {
+      document.querySelector('.popup').style.display = 'none';
+      document.body.removeChild(document.querySelector('.popup'));
+    }
+
+    function addItem() {
+      if (document.querySelector('span').textContent === 'MANAGER VIEW') {
+        alert('Adding new item...');
+      }
+    }
+
+    function editItem(itemId) {
+      alert(`Editing item with ID ${itemId}`);
+    }
+
+    function deleteItem(itemId) {
+      alert(`Deleting item with ID ${itemId}`);
+    }
+
+    function generateInventoryTable() {
+      setHeader();
+      let inventoryTable = '<table><tr><th>ID</th><th>User ID</th><th>Name</th><th>Description</th><th>Quantity</th>';
+
+      if (document.querySelector('span').textContent === 'MANAGER VIEW') {
+        inventoryTable += '<th>Manager Actions</th>';
+      }
+      
+      inventoryTable += '</tr>';
+
+      inventoryData.forEach(item => {
+        let truncatedDescription = item.description.length > 100 ? item.description.substring(0, 100) + '...' : item.description;
+
+        inventoryTable += `<tr><td>${item.id}</td><td>${item.userId}</td><td>${item.name}</td><td>${truncatedDescription}</td><td>${item.quantity}</td>`;
+        
+        if (document.querySelector('span').textContent === 'MANAGER VIEW') {
+          inventoryTable += `<td><button onclick="editItem(${item.id})">Edit</button><button onclick="deleteItem(${item.id})">Delete</button></td>`;
+          inventoryTable += `<td><button onclick="showDescriptionPopup('${item.description}')">View</button></td>`;
+        } else {
+          inventoryTable += `<td><button onclick="showDescriptionPopup('${item.description}')">View</button></td>`;
+        }
+        
+        inventoryTable += '</tr>';
+      });
+
+      inventoryTable += '</table>';
+
+      if (document.querySelector('span').textContent === 'MANAGER VIEW') {
+        inventoryTable += '<button onclick="addItem()">Add Item</button>';
+      }
+
+      document.querySelector('.content').innerHTML += inventoryTable;
+    }
+
+    generateInventoryTable();
+  </script>
+
+  <!-- Home button -->
+  <button class="home-button" onclick="goHome()">HOME</button>
+
+  <!-- Example JavaScript function for demonstration -->
+  <script>
+    function goHome() {
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
